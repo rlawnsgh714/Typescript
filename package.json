@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rlawnsgh714/typescript/issues"
   },
-  "homepage": "https://github.com/rlawnsgh714/typescript#readme"
+  "homepage": "https://github.com/rlawnsgh714/typescript#readme",
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
 }
