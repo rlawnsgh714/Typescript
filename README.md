@@ -8,4 +8,6 @@ cd 노마드코더
 
 cd typechain
 
+npm i
+
 npm start
