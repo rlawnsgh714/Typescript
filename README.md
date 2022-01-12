@@ -11,3 +11,13 @@ cd typechain
 npm i
 
 npm start
+
+# nestjs_api 사용시
+
+cd 노마드코더
+
+cd nestjs_api
+
+npm i 
+
+npm start
