@@ -10,8 +10,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/hello') // /hello로 들어온다면 sayHello 함수 실행
+  @Get('/hello') // loaclhost:3000/hello로 들어온다면 sayHello 함수 실행
   sayHello(): string {
-    return 'Hello everyone.';
+    return this.appService.getHi();
   }
 }
