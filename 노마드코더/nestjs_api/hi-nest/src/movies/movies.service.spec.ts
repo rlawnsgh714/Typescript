@@ -30,7 +30,6 @@ describe('MoviesService', () => {
       genres: ['test'],
       year: 2000,
     });
-  });
   it('should return a movie', () => {
     const movie = service.getOne(1);
     expect(movie).toBeDefined();
@@ -45,4 +44,41 @@ describe('MoviesService', () => {
       expect(e.message).toEqual(`Moive with ID 999 not found.`);
     }
   });
+});
+
+  describe("deleteOne",()=>{
+    it('delete a movie',()=>{
+      service.create({
+        title:'Test Moive',
+        genres:['test'],
+        year:2000,
+      })
+      const beforeDelete = service.getAll().length;
+      service.deleteOne(1)
+      const afterDelete = service.getAll().length;
+
+      expect(afterDelete).toEqual(beforeDelete);
+    })
+    it('should return a 404',()=>{
+      try{
+        service.deleteOne(999);
+      }catch(e){
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
+
+  describe('create',()=>{
+    it('should create a movie',()=>{
+      const beforeCreate = service.getAll().length;
+      service.create({
+        title:'Test Moive',
+        genres:['test'],
+        year:2000,
+      });
+      const afterCreate = service.getAll().length;
+      console.log(beforeCreate, afterCreate);
+      expect(afterCreate).toBeGreaterThan(beforeCreate);
+    })
+  })
 });
