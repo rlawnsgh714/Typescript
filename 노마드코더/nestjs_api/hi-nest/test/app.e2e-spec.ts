@@ -14,11 +14,36 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
   });
+  // it('/ (GET)', () => {
+  //   return request(app.getHttpServer())
+  //     .get('/')
+  //     .expect(200)
+  //     .expect('Welcome to my Movie API');
+  // });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
+  describe('/movies',()=>{
+    it("GET",()=>{
+      return request(app.getHttpServer())
+      .get('/movies')
       .expect(200)
-      .expect('Hello World!');
-  });
+      .expect([]);
+    });
+    it("POST",()=>{
+      return request(app.getHttpServer())
+      .post('/moives')
+      .send({
+        title:'test',
+        year:2000,
+        genres:['test'],
+      })
+      .expect(404);
+    })
+    it("DELETE",()=>{
+      return request(app.getHttpServer())
+      .delete('/movies')
+      .expect(404);
+    })
+  })
+  
+
 });
