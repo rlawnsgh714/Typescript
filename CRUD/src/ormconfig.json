@@ -4,7 +4,5 @@
     "port": 3306,
     "username": "root",
     "password": "123456789",
-    "database": "crud",
-    "entities": "[__dirname + '/**/*.entity{.ts,.js}']",
-    "synchronize": true
+    "database": "crud"
   }
