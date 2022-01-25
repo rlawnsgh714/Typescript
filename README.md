@@ -2,18 +2,23 @@
 typescript 공부한 것들을 모아 놓는 곳
 
 
+#
+typechain
 
-# typechain 사용시
 cd 노마드코더/typechain
+#
 
-npm i
+nestjs_api
 
-npm start
+cd nestjs_api/hi-nest
+#
 
-# nestjs_api 사용시
+CRUD
 
-cd 노마드코더/nestjs_api/hi-nest
+cd crud
+#
 
-npm i 
+서버 열기 : npm run start
 
-npm start
+개발 모드 : npm run start:dev
+
