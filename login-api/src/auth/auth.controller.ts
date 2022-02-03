@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import BaseResponse from 'src/common/response';
 import LoginDto from './dto/login.dto';
 
-@Controller()
+@Controller('/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -12,7 +12,7 @@ export class AuthController {
     return this.authService.getHello();
   }
 
-  @Post()
+  @Post('/login')
   async login(
     @Body() loginDto: LoginDto,
     ): Promise<BaseResponse> {
