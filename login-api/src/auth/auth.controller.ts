@@ -31,7 +31,7 @@ export class AuthController {
     ): Promise<BaseResponse> {
         const data = await this.authService.register(registerDto);
 
-        return new BaseResponse(200, '로그인 성공', {
+        return new BaseResponse(200, '회원가입 성공', {
             name: data.name,
             password: data.password
         });
