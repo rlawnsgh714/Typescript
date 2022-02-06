@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ormConfig } from 'src/config/ormconfig';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { UserRepository } from './repository/auth.repository'
 
 @Module({
   imports: [
-      TypeOrmModule.forRoot(ormConfig)
+      TypeOrmModule.forFeature([UserRepository])
   ],
   controllers: [AuthController],
   providers: [AuthService],

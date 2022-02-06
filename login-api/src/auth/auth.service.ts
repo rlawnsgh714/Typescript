@@ -1,19 +1,19 @@
 import { 
     BadRequestException, 
-    ForbiddenException, 
     Injectable, 
     InternalServerErrorException, 
     Logger, 
-    UnauthorizedException 
 } from '@nestjs/common';
 import LoginDto from './dto/login.dto';
 import registerDto from './dto/register.dto';
+import { UserRepository } from './repository/auth.repository';
 
 @Injectable()
 export class AuthService {
+  UserRepository: UserRepository;
 
   getHello(): string {
-    return 'Hello World!';
+    return 'Hello'; 
   }
 
   async login(loginDto:LoginDto) {
@@ -44,6 +44,8 @@ export class AuthService {
     };
 
     try {
+      const User = this.UserRepository.create(registerData);
+        await this.UserRepository.save(registerData);
         return registerData;
       } catch (err: any) {
         if (err.response !== undefined) {

@@ -9,8 +9,4 @@ export default class registerDto {
   @IsString()
   @IsNotEmpty()
   password!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password2!: string;
 }
