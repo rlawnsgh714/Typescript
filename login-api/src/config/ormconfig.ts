@@ -1,6 +1,5 @@
 import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
-import models from '../models';
-
+import { User } from "src/auth/enetity/user.entity";
 export const ormConfig: MysqlConnectionOptions = {
   type: 'mysql',
   host: 'localhost',
@@ -8,6 +7,6 @@ export const ormConfig: MysqlConnectionOptions = {
   username: 'root',
   password: '123456789',
   database: 'practice',
-  entities: models,
+  entities: [User],
   synchronize: false,
 };

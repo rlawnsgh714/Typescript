@@ -1,62 +1,55 @@
 import { 
-    BadRequestException, 
-    Injectable, 
-    InternalServerErrorException, 
-    Logger, 
+    Injectable,
 } from '@nestjs/common';
-import LoginDto from './dto/login.dto';
-import registerDto from './dto/register.dto';
-import { UserRepository } from './repository/auth.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './enetity/user.entity';
 
 @Injectable()
 export class AuthService {
-  UserRepository: UserRepository;
-
-  getHello(): string {
-    return 'Hello'; 
+  constructor(
+    @InjectRepository(User) private userRepository
+  ) {
+    this.userRepository = userRepository;
   }
 
-  async login(loginDto:LoginDto) {
-    const loginData = {
-        name: loginDto.name,
-        password: loginDto.password,
-    };
-
-    try {
-        return loginData;
-      } catch (err: any) {
-        if (err.response !== undefined) {
-          switch (err.response.status) {
-            case 400:
-              throw new BadRequestException('검증 오류');
-            default:
-              Logger.error(err);
-              throw new InternalServerErrorException('로그인 서버 오류');
-          }
-        }
-      }
+  findAll(): Promise<User[]> {
+    return this.userRepository.find();
   }
 
-  async register(registerDto:registerDto) {
-    const registerData = {
-        name: registerDto.name,
-        password: registerDto.password,
-    };
+  findOne(id: string): Promise<User> {
+    return this.userRepository.findOne({ userId: id });
+  }
 
-    try {
-      const User = this.UserRepository.create(registerData);
-        await this.UserRepository.save(registerData);
-        return registerData;
-      } catch (err: any) {
-        if (err.response !== undefined) {
-          switch (err.response.status) {
-            case 400:
-              throw new BadRequestException('검증 오류');
-            default:
-              Logger.error(err);
-              throw new InternalServerErrorException('로그인 서버 오류');
-          }
-        }
+  async register(user: User): Promise<User> {
+    if(!user.name || !user.password || !user.userId){
+      return Object.assign({
+        statusCode: 401,
+        statusMsg: `입력되지 않은 항목이 있습니다.`,
+      });
+    }
+    return await this.userRepository.save(user);
+  }
+
+  async login(user:User):Promise<User>{
+    const logindata = await this.userRepository.findOne({ 
+      where : {
+        name : user.name
       }
+     });
+    console.log(user.name);
+    console.log(logindata);
+    if(logindata === undefined){
+      return Object.assign({
+        statusCode: 401,
+        statusMsg: `이 이름을 가진 사람이 없습니다.`,
+      });
+    }
+    if(logindata.name === user.name){
+      return logindata;
+    }
+  }
+  
+  async deleteUser(id: string): Promise<void> {
+    await this.userRepository.delete({ userId: id });
   }
 }
